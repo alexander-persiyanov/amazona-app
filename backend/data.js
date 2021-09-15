@@ -5,7 +5,7 @@ const data = {
             name:'Nike slim shirt',
             category:'shirt',
             image:'/images/p1.jpg',
-            price:120,
+            price:150,
             countInStock:4,
             brand:'Nike',
             rating:3.5,

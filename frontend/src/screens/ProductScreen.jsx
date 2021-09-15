@@ -40,7 +40,7 @@ function ProductScreen (props){
                           <li>
                               <div className="row">
                                   <div>Status</div>
-                                  <div>{product.countInStock>0 ?(<span className="success">InStock</span>): (<span className="error">Unavaible</span> )}</div>
+                                  <div>{product.countInStock>0 ?(<span className="success">InStock</span>): (<span className="danger">Unavaible</span> )}</div>
                                 
                               </div>
                           </li>
