@@ -1,4 +1,4 @@
-import React, { useEffect }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { detailsProduct } from '../actions/productAction';
@@ -13,6 +13,7 @@ function ProductScreen (props){
     const {loading,error,product} = productDetails;
     const dispatch = useDispatch();
     const productId = props.match.params.id;
+    const [qty,setQty] = useState(1);
     
     // const product = data.products.find(x => x._id === props.match.params.id );
     // if(!product){
@@ -24,7 +25,13 @@ function ProductScreen (props){
     useEffect(()=>{
         dispatch(detailsProduct(productId));
     },[dispatch,productId]);
+    
 
+    const addToCardHandler = ()=>{
+        props.history.push(`/cart/${productId}?qty=${qty}` );
+    };
+
+    
     return(
 
         <div>
@@ -63,9 +70,33 @@ function ProductScreen (props){
                                     
                                 </div>
                             </li>
-                            <li>
-                                <button className="primary block">Add to card</button>
-                            </li>
+                            {
+                                product.countInStock>0 && (
+                                    <>
+                                    <li>
+                                        <div className="row">
+                                            <div>Qty</div>
+                                            <div>
+                                                <select value={qty}  onChange={ e=>setQty(e.target.value)} name="" id="">
+
+                                                    {
+                                                        [...Array(product.countInStock).keys()].map((x)=>{
+                                                            return <option key={x+1} value={x+1}>{x+1}</option> ;
+                                                        })
+                                                    }
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button onClick={addToCardHandler} className="primary block">Add to card</button>
+                                    </li>
+                                    </>
+                                    
+                                )
+                            }
+                          
                         </ul>
                     </div>
                     </div>
