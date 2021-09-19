@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
-import {addToCart} from './../actions/cartAction';
+import {addToCart,removeFromCart} from './../actions/cartAction';
 import MessageBox from './MessageBox';
 function Cart (props){
   const productId = props.match.params.id;
@@ -17,9 +17,12 @@ function Cart (props){
   },[dispatch,productId,qty]);
    
   const removeFromCartHandler = (id)=>{
+    
+    dispatch(removeFromCart(id));
 
   }
   const checkoutHandler = ( )=>{
+  
     props.history.push('/signin?redirect=shipping');
 
   }

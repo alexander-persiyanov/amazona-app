@@ -1,4 +1,4 @@
-import {CART_ADD_ITEM} from "../constans/cartCostans";
+import {CART_ADD_ITEM,CART_REMOVE_ITEM} from "../constans/cartCostans";
 
 
 export const cartReducer = (state = {cartItems:[]},action)=>{
@@ -14,6 +14,10 @@ export const cartReducer = (state = {cartItems:[]},action)=>{
                 // add new item to cart
                 return {...state, cartItems:[...state.cartItems,item]}
             }
+        case CART_REMOVE_ITEM :
+           
+           const filtered = state.cartItems.filter((item)=>{ return item.product!== action.payload.productId});
+            return {...state, cartItems: filtered }
         default:
                 return state;
     }
