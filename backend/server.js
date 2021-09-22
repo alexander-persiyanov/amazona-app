@@ -8,8 +8,16 @@ import mongoose from 'mongoose';
 // import data from './data.js';
 import productRouter from './routers/productRouter.js';
 import userRouter from './routers/userRouter.js';
+import dotenv from 'dotenv';
+
+//dotenv library for reading ENV params
+dotenv.config();
 
 const app = express();
+
+//this middleware convert http request body content to rec body node application 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 
 
