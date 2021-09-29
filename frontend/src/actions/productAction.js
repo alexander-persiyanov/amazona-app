@@ -9,6 +9,7 @@ export const listProducts = ()=> async(dispatch) => {
     dispatch({type:PRODUCT_LIST_REQUEST});
 
     try{
+        console.dir(Axios.get('api/products'));
         const {data} =  await Axios.get('api/products');
         dispatch({type:PRODUCT_LIST_SUCCESS,payload:data});
     }

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CART_ADD_ITEM,CART_REMOVE_ITEM } from "../constans/cartCostans";
+import { CART_ADD_ITEM,CART_REMOVE_ITEM } from "../constans/cartConstans";
 
 export const addToCart  = (productId,qty)=>{
    
