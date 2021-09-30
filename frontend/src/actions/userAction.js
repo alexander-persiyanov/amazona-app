@@ -62,6 +62,7 @@ export const signout = ()=>{
         dispatch({type:USER_SIGNOUT});
         localStorage.removeItem('userInfo');
         localStorage.removeItem('cartItems');
+        localStorage.removeItem('shippingAddress');
 
     }
 }
