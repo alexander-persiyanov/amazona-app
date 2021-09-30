@@ -20,6 +20,7 @@ expressAsyncHandler(
 
 userRouter.post('/signin',
 expressAsyncHandler(async(req,res)=>{
+   
        const user = await User.findOne({email:req.body.email});
        if(user){
            if(bcrypt.compareSync(req.body.password,user.password)){
@@ -39,6 +40,28 @@ expressAsyncHandler(async(req,res)=>{
 
     
     })
+);
+
+userRouter.post('/register',
+    expressAsyncHandler(async(req,res)=>{
+            const user = new User(
+                {
+                    name:req.body.name,
+                    email:req.body.email,
+                    password:bcrypt.hashSync(req.body.password,8)
+                }
+            );
+            const createdUsers = await user.save();
+            res.send({
+                _id:createdUsers._id,
+                name:createdUsers.name,
+                email:createdUsers.email,
+                isAdmin:createdUsers.isAdmin,
+                token: generateToken(createdUsers),
+
+            })
+        }
+    )
 );
 
 export default userRouter;

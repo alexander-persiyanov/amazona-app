@@ -169,6 +169,9 @@ img.large{
   color: #404040;
 }
 /* Alert */
+.loading{
+  dispaly:block !important;
+}
 span.success{
   color: #20a020;
 
