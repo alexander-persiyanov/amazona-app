@@ -4,7 +4,7 @@ import {
     CART_SAVE_SHIPPING_ADDRESS,
     CART_SAVE_PAYMENT_METHOD,
 
-} from "../constans/cartConstans";
+} from "../constans/cartConstants";
 
 export const addToCart  = (productId,qty)=>{
    
@@ -24,7 +24,7 @@ export const addToCart  = (productId,qty)=>{
         });
         localStorage.setItem('cartItems',JSON.stringify(getState().cart.cartItems))
     }
-}
+};
 
 export const removeFromCart  = (productId)=>{
    
@@ -33,7 +33,7 @@ export const removeFromCart  = (productId)=>{
         dispatch({type:CART_REMOVE_ITEM,payload:{productId } });
         localStorage.setItem('cartItems',JSON.stringify(getState().cart.cartItems))
     }
-}
+};
 
 
 export const saveShippingAddress = (data) =>{
@@ -42,13 +42,14 @@ export const saveShippingAddress = (data) =>{
       dispatch( {type:CART_SAVE_SHIPPING_ADDRESS,payload:data});
       localStorage.setItem('shippingAddress',JSON.stringify(data));    
     }
-}
+};
 
 export const savePaymentMethod=(data) =>{
 
     return (dispatch) =>{
       dispatch( {type:CART_SAVE_PAYMENT_METHOD,payload:data});
-    //   localStorage.setItem('paymentMethod',JSON.stringify(data));    
+   
     }
-}
+};
+
 

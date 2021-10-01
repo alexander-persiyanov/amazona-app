@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function LoginBox (props){
+function LoadingBox (props){
 
    
 
@@ -15,4 +15,4 @@ function LoginBox (props){
 
 }
 
-export default LoginBox;
+export default LoadingBox;
