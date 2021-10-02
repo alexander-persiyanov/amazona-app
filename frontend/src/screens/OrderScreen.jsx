@@ -1,68 +1,50 @@
 import {React,useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import createOrder from '../actions/orderActions';
-import CheckoutSteps from '../components/CheckoutSteps';
-import { ORDER_CREATE_RESET } from '../constans/orderConstants';
+import { detailsOrder } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 
 
-const PleceOrderScreen = (props)=>{
-  
-    const cart = useSelector((state) => state.cart);
-    if(!cart.paymentMethod){
-        props.history.push('/payment');
-    }
-    const orderCreate = useSelector(state=>state.orderCreate);
-    const {loading,success,error,order}=orderCreate;
-    const toPrice = (num)=>{ return Number(num.toFixed(2)) };//5.123=>5.12=> to number 5.12
-    cart.itemsPrice = toPrice(
-        cart.cartItems.reduce((a,c)=>a+c.qty *c.price,0)
-    );
-
+const OrderScreen = (props)=>{
+    const orderId = props.match.params.id;
+    const orderDetails = useSelector(state=> state.orderDetails);
    
-
-    cart.shippingPrice = cart.itemsPrice>100? toPrice(0) : toPrice(10);
-
-    cart.taxPrice = toPrice(0.15 *cart.itemsPrice);
-    cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-
+    const {order,loading,error} = orderDetails;
     const dispatch = useDispatch();
 
-
-    const placeOrderHandler = ()=>{
-        dispatch(createOrder ({...cart,orderItems:cart.cartItems}));
-
-    }
-
     useEffect(()=>{
-        if(success){
-            props.history.push(`/order/${order._id}`);
-            dispatch({type:ORDER_CREATE_RESET});
-        }
+       dispatch(detailsOrder(orderId));
     },
-    [dispatch,order,props.history,success]);
+    [dispatch,orderId]);
 
 
-    return (
+    return loading?(<LoadingBox></LoadingBox>): error?<MessageBox variant="danger">{error}</MessageBox>: (
         <div>
-            <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
+           <h1>Order {order._id}</h1>
             <div className="row top">
                 <div className="col-2">
                     <ul>
                         <li>
                             <div className="card card-body">
-                                <h1>Shipping</h1>
-                                <p><strong>Name:</strong>{cart.shippingAddress.fullName}</p><br />
-                                <p><strong>Address:</strong>{cart.shippingAddress.address}</p><br />
-                              {cart.shippingAddress.city},  {cart.shippingAddress.country},
+                                <p>
+                                    <h1>Shipping</h1>
+                                    <p><strong>Name:</strong>{order.shippingAddress.fullName}</p><br />
+                                    <p><strong>Address:</strong>{order.shippingAddress.address}</p><br />
+                                    {order.shippingAddress.city},  {order.shippingAddress.country},
+                                </p>
+                                {order.isDelivered ?<MessageBox variant="success">Delivered at {order.deliveredAt}</MessageBox>:
+                                <MessageBox variant="danger">Not Delivered</MessageBox>
+                                }
                             </div>
                         </li>
                         <li>
                             <div className="card card-body">
                                 <h1>Payment</h1>
-                                <p><strong>Method:</strong>{cart.paymentMethod}</p>
+                                <p><strong>Method:</strong>{order.paymentMethod}</p>
+                                {order.isPaid ?<MessageBox variant="success">Paid at {order.paidAt}</MessageBox>:
+                                <MessageBox variant="danger">Not Paid</MessageBox>
+                                }
                                
                             </div>
                         </li>
@@ -71,7 +53,7 @@ const PleceOrderScreen = (props)=>{
                                 <h1>Order items</h1>
                                 <ul>
                                     {
-                                        cart.cartItems.map((item)=>{
+                                        order.orderItems.map((item)=>{
                                         return(
                                         <li key={item.product}>
                                             <div className="row">
@@ -103,35 +85,29 @@ const PleceOrderScreen = (props)=>{
                             <li>
                                 <div className="row">
                                     <div>Items</div>
-                                    <div>${cart.itemsPrice.toFixed(2)}</div>
+                                    <div>${order.itemsPrice.toFixed(2)}</div>
                                 </div>
                             </li> 
                             <li>
                                 <div className="row">
                                     <div>Shipping</div>
-                                    <div>${cart.shippingPrice.toFixed(2)}</div>
+                                    <div>${order.shippingPrice.toFixed(2)}</div>
                                 </div>
                             </li>
                            <li>
                                 <div className="row">
                                     <div>Tax</div>
-                                    <div>${cart.taxPrice.toFixed(2)}</div>
+                                    <div>${order.taxPrice.toFixed(2)}</div>
                                 </div>
                             </li> 
                             <li>
                                 <div className="row">
                                     <div> <strong> Order Total</strong></div>
-                                    <div>${cart.totalPrice.toFixed(2)}</div>
+                                    <div>${order.totalPrice.toFixed(2)}</div>
                                 </div>
                             </li> 
-                            <li>
-                                <button className="primary" type="button block" onClick={placeOrderHandler} 
-                                disabled={cart.cartItems.length ===0}>
-                                    Place Order
-                                </button>
-                            </li>
-                            {loading &&  <LoadingBox></LoadingBox>}
-                            {error && <MessageBox variant="danger">{error}</MessageBox> }
+                            
+                            
                         </ul>
                     </div>
                 </div>
@@ -140,4 +116,4 @@ const PleceOrderScreen = (props)=>{
         </div>
     );
 }
-export default PleceOrderScreen;
+export default OrderScreen;

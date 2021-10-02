@@ -40,7 +40,7 @@ productRouter.get('/:id',
             if(product){
                 res.send(product);
             }else{
-                res.status(4040).send({message:'Product not found'});
+                res.status(404).send({message:'Product not found'});
             }
         }
     ) 
