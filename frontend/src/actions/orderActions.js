@@ -20,7 +20,7 @@ const createOrder = (order) =>{
                     Authorization:`Bearer ${userInfo.token}`,
                 }
             });
-
+           
             dispatch({type:ORDER_CREATE_SUCCESS,payload:data.order});
             dispatch({type:CART_EMPTY});
             localStorage.removeItem("cartItems");
@@ -49,6 +49,8 @@ export const detailsOrder =  (orderId)=>{
                     Authorization:`Bearer ${userInfo.token}`,
                 }
             }); 
+            console.dir(data);
+          
             // response from server that contains data order details
             dispatch({type:ORDER_DETAILS_SUCCESS,payload:data});
         } catch (error) {

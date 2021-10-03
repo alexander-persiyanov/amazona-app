@@ -32,6 +32,7 @@ const PleceOrderScreen = (props)=>{
 
 
     const placeOrderHandler = ()=>{
+      
         dispatch(createOrder ({...cart,orderItems:cart.cartItems}));
 
     }

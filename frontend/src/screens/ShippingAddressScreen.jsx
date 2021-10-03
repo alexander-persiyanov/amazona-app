@@ -8,7 +8,7 @@ function ShippingAddressScreen (props){
     const {userInfo} = userSignin;
     const cart = useSelector(state=>state.cart);
     const {shippingAddress} = cart; 
-   console.dir(cart)
+//    console.dir(cart)
     if(!userInfo){
         props.history.push('/signin');
     }
