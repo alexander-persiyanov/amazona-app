@@ -4,7 +4,10 @@ import Order from '../models/orderModel.js';
 import { isAuth } from '../utils.js';//Middleware for send user field
 
 const orderRouter = express.Router();
-
+orderRouter.get('/mine',isAuth,expressAsyncHandler(async(req,res)=>{
+    const orders = await Order.find({user:req.user._id});
+    res.send(orders);
+}));
 orderRouter.post('/',isAuth,expressAsyncHandler(async(req,res)=>{
     if(req.body.orderItems===0){
         res.status(400).send({message:"Card is empty"});
