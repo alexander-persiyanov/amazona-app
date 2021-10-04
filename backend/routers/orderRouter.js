@@ -36,6 +36,45 @@ orderRouter.get('/:id',isAuth,expressAsyncHandler(async(req,res)=>{
         res.status(404).send({message:"Order not found"});
     }
 
-}))
+}));
+
+orderRouter.put('/:id/pay',isAuth,expressAsyncHandler(async(req,res)=>{
+    const order = await Order.findById(req.params.id);
+  
+    if(order){
+        console.log("order exist");
+        console.log(`id:${req.body.id}`);
+        console.log(`status:${req.body.status}`);
+        console.log(`update_time:${req.body.update_time}`);
+        console.log(`email_address:${req.body.payer.email_address}`);
+
+
+        console.log(req.body);
+      
+       
+
+        order.isPaid = true;
+        order.paidAt  = Date.now();
+       
+        order.paymentResult = {
+            id:req.body.id,
+            status:req.body.status,
+            update_time:req.body.update_time,
+            email_address:req.body.payer.email_address,
+        };
+
+     
+        const updatedOrder = await order.save();
+       
+       
+        res.send({message:"Order Paid",order: updatedOrder});
+    }else{
+        res.status(404).send({message:'Order Not Found'});
+    }
+   
+
+}));
+
+
 
 export default orderRouter;

@@ -180,6 +180,11 @@ span.danger{
   color: #a02020;
 
 }
+.alert-success{
+  color:#20a020;
+  background-color: #e0e0ff;
+
+}
 
 .alert{
   padding: 1rem;

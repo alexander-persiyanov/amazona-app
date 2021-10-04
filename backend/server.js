@@ -21,8 +21,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 
-
-await mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazona',{
+// await 
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazona',{
   useNewUrlParser:true,
   useUnifiedTopology:true,
   useCreateIndex:true,
@@ -57,7 +57,7 @@ app.get('/api/config/paypal',(req,res)=>{
 });
 
 app.get('/', (req, res) => {
-  res.send('Server is ready');
+  res.send('Server is ready!!!1111');
 });
 
 //Errore catcher from router expressAsyncHandler in userRouter

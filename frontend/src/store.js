@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { productListReducer,productDetailsReducer } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers';
 import { userSigninReducer,userRegisterReducer, } from './reducers/userReducer';
-import {orderDetailsReducer, orderReducer} from './reducers/orderReducers';
+import {orderDetailsReducer, orderReducer,orderPayReducer} from './reducers/orderReducers';
 
 
 
@@ -27,12 +27,13 @@ const reducer = combineReducers({
     userRegister:userRegisterReducer,
     orderCreate:orderReducer,
     orderDetails:orderDetailsReducer,
+    orderPay:orderPayReducer,
     
 });
 
 
 // link extension tool google chrome with redux
-const  composeEnchancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer,initialState,composeEnchancer(applyMiddleware(thunk)));
+const  composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer,initialState,composeEnhancer(applyMiddleware(thunk)));
 
 export default store;
