@@ -74,12 +74,13 @@ const OrderScreen = (props)=>{
                     <ul>
                         <li>
                             <div className="card card-body">
-                                <p>
-                                    <h1>Shipping</h1>
+                            <h1>Shipping</h1>
+                                <div>
+                                  
                                     <p><strong>Name:</strong>{order.shippingAddress.fullName}</p><br />
                                     <p><strong>Address:</strong>{order.shippingAddress.address}</p><br />
                                     {order.shippingAddress.city},  {order.shippingAddress.country},
-                                </p>
+                                </div>
                                 {order.isDelivered ?<MessageBox variant="success">Delivered at {order.deliveredAt}</MessageBox>:
                                 <MessageBox variant="danger">Not Delivered</MessageBox>
                                 }

@@ -1,3 +1,5 @@
+//sb-mm43it7991900@personal.example.com
+//5?xlT44R
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {BrowserRouter,Route,Link} from 'react-router-dom';
@@ -54,7 +56,7 @@ function App() {
                     <Link to="/orderhistory">Order History</Link>
                   </li>
                   <li>
-                    <Link to="#signout" onClick={signoutHandler}> Sign Out</Link>
+                    <Link to="/#signout" onClick={signoutHandler}> Sign Out</Link>
                   </li>
                 </ul>
               </div>

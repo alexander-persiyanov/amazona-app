@@ -74,6 +74,7 @@ input,select,textarea,button{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
  
+ 
 }
 button{
   background-color: #f8f8f8;
@@ -212,7 +213,7 @@ form>div{
   flex-direction: column;
 
 }
-form .label {
+form label {
   margin:1rem 0;
  
 }
